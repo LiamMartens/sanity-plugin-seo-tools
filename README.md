@@ -6,6 +6,7 @@ When proposing backend solutions for a client website many will request somethin
 ## How to use
 1. Install the plugin using the Sanity CLI `sanity install seo-tools`
 2. Configure your document with the SEO tools
+*The result of the `content(doc)` function should represent the final result of but does not have to be 100% accurate. It should act as a real-time representation of the resulting content*
 ```
 export default {
     type: 'document',
@@ -16,11 +17,23 @@ export default {
         title: 'SEO',
         type: 'seo-tools', // use seo-tools type
         options: {
-            baseUrl: 'https://.../', // (REQUIRED) This is the baseUrl for your site so the plugin knows where to fetch your content
+            baseUrl: 'https://.../', // (REQUIRED) This is the baseUrl for your site
             slug(doc) { // (REQUIRED) a function to return the sug of the current page, which will be appended to the baseUrl
                 return doc.slug.current;
             },
-            contentSelector: 'body' // (OPTIONAL) option to finetune where Yoast will look for the content
+            content(doc) {
+                return 'simple html representation of your doc'; // (OPTIONAL) If your site is generated after Sanity content updates you can use this for better real time feedback
+            },
+            title(doc) {
+                return 'page title'; // (OPTIONAL) return page title otherwise inferred from scrape
+            },
+            description(doc) {
+                return 'page description'; // (OPTIONAL) return page description otherwise inferred from scrape
+            },
+            locale(doc) {
+                reutrn 'page locale'; // (OPTIONAL) return page locale otherwise inferred from scrape
+            },
+            contentSelector: 'body' // (OPTIONAL) option to finetune where Yoast will look for the content. (only applicable for scraping without content function)
         },
     }
 }

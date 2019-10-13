@@ -22,6 +22,10 @@ enum Tabs {
 interface IOptions {
     baseUrl: string;
     slug: (doc: any) => string;
+    content?: (doc: any) => string;
+    title?: (doc: any) => string;
+    description?: (doc: any) => string;
+    locale?: (doc: any) => string;
     contentSelector?: string;
 }
 
@@ -203,21 +207,23 @@ class InputContainer extends React.PureComponent<IProps, IState> {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(content, 'text/html');
                 Array.from(doc.body.querySelectorAll('script')).forEach(s => s.remove());
-                let langCulture = doc.documentElement.lang || 'en';
+                let langCulture = options.locale ? options.locale(document) : (doc.documentElement.lang || 'en');
                 if (!langCulture.includes('-')) langCulture = langCultureMap[langCulture] || 'en-US';
+                const title = options.title ? options.title(document) : doc.title;
+                const description  = options.description ? options.description(document) : (doc.querySelector('meta[name="description"]') as HTMLMetaElement).content;
                 const paperOptions: IYoastPaperOptions = {
                     keyword: value.focus_keyword || '',
                     url: slug,
                     permalink: url,
-                    title: doc.title,
+                    title,
                     synonyms: (value.focus_synonyms || []).join(','),
-                    description: (doc.querySelector('meta[name="description"]') as HTMLMetaElement).content,
+                    description,
                     locale: langCulture.replace('-', '_'),
                 };
-                const contentBySelector = options.contentSelector ? doc.querySelector(options.contentSelector) : doc.body;
-                const paper = new this.YoastSEO.Paper((contentBySelector || doc.body).innerHTML, paperOptions);
+                const contentBySelector = (options.contentSelector ? doc.querySelector(options.contentSelector) : doc.body);
+                const rawContent = options.content ? options.content(document) : (contentBySelector || doc.body).innerHTML;
+                const paper = new this.YoastSEO.Paper(rawContent, paperOptions);
                 const researcher = new this.YoastSEO.Researcher(paper);
-                console.log('xxx', researcher.getResearch('findTransitionWords'));
                 this.setState({
                     initialAudit: false,
                     auditOngoing: false,
