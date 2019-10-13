@@ -1,0 +1,22 @@
+{
+    "presets": [
+        "@babel/preset-typescript",
+        "@babel/preset-react",
+        [
+            "@babel/preset-env",
+            {
+                "useBuiltIns": "entry",
+                "loose": true,
+                "modules": false,
+                "corejs": 3,
+                "targets": {
+                    "chrome": "58",
+                    "ie": "11"
+                }
+            }
+        ]
+    ],
+    "plugins": [
+        "@babel/plugin-proposal-class-properties"
+    ]
+}

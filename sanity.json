@@ -1,0 +1,25 @@
+{
+    "paths": {
+      "source": "./src",
+      "compiled": "./lib"
+    },
+    "parts": [
+      {
+        "name": "part:@sanity/form-builder/input/seo-tools",
+        "description": "seo-tools input"
+      },
+      {
+        "implements": "part:@sanity/form-builder/input/seo-tools",
+        "path": "input/index.js"
+      },
+      {
+        "name": "part:@sanity/form-builder/input/seo-tools/schema",
+        "description": "SEO tools for Sanity"
+      },
+      {
+        "implements": "part:@sanity/base/schema-type",
+        "path": "schema/index.js"
+      }
+    ]
+  }
+  

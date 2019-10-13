@@ -1,0 +1,105 @@
+$color-light: #fff;
+$color-gray: #f1f1f1;
+$color-sanity: #156dff;
+
+.seotools {
+    border-bottom: .1rem solid $color-gray;
+    padding-bottom: 2rem;
+    margin-bottom: 4rem;
+
+    .title {
+        margin: 0 0 .8rem 0;
+        font-size: 1.25rem;
+        font-weight: 400;
+    }
+
+    .audit {
+        position: relative;
+        margin-bottom: 1rem;
+        padding: .8rem;
+        background: $color-gray;
+    }
+
+    .loading {
+        margin: 0;
+        animation: sanity-plugin-seo-tools--audit-loading 1s alternate infinite;
+
+        &.overlay {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba($color-gray, .96);
+        }
+    }
+
+    .tabs {
+        .switcher {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .switch {
+            padding: 5px 10px;
+            font-size: 14px;
+            border: 1px solid $color-sanity;
+            border-right-width: 0;
+            color: $color-sanity;
+            outline: 0;
+            cursor: pointer;
+            background: $color-light;
+        
+            &:disabled {
+                color: $color-light;
+                background: $color-sanity;
+            }
+        
+            &:first-child {
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+        
+            &:last-child {
+                border-right-width: 1px;
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
+        }
+    }
+
+    .result {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-bottom: .5rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .icon,
+        .name {
+            margin: 0;
+        }
+
+        .icon {
+            margin-right: .4rem;
+        }
+    }
+
+    .field + .field {
+        margin-top: 1.5rem;
+    }
+}
+
+@keyframes sanity-plugin-seo-tools--audit-loading {
+    from { color: rgba(0, 0, 0, .8); }
+    to { color: rgba(0, 0, 0, .3); }
+}
