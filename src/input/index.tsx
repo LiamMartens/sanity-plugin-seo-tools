@@ -138,6 +138,12 @@ class InputContainer extends React.PureComponent<IProps, IState> {
 
     private YoastSEO = require('yoastseo');
 
+    private get value() {
+        const { value } = this.props;
+        if (!value) return {};
+        return value;
+    }
+
     private get idealKeywordDensity() {
         const { wordCountInText } = this.state;
         return Math.floor(wordCountInText / 180);
@@ -212,11 +218,11 @@ class InputContainer extends React.PureComponent<IProps, IState> {
                 const title = options.title ? options.title(document) : doc.title;
                 const description  = options.description ? options.description(document) : (doc.querySelector('meta[name="description"]') as HTMLMetaElement).content;
                 const paperOptions: IYoastPaperOptions = {
-                    keyword: value.focus_keyword || '',
+                    keyword: this.value.focus_keyword || '',
                     url: slug,
                     permalink: url,
                     title,
-                    synonyms: (value.focus_synonyms || []).join(','),
+                    synonyms: (this.value.focus_synonyms || []).join(','),
                     description,
                     locale: langCulture.replace('-', '_'),
                 };
@@ -322,7 +328,7 @@ class InputContainer extends React.PureComponent<IProps, IState> {
                                             {(valid: boolean) => (
                                                 valid
                                                     ? <>Keyphrase found in page title</>
-                                                    : <>Not all the words from your keyphrase "{value.focus_keyword}" appear in the SEO title</>
+                                                    : <>Not all the words from your keyphrase "{this.value.focus_keyword}" appear in the SEO title</>
                                             )}
                                         </Result>
                                         <Result valid={keyphraseLength > 0 && keywordInFirstParagraph}>
