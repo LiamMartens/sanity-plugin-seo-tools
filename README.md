@@ -31,11 +31,11 @@ export default {
                 return 'page description'; // (OPTIONAL) return page description otherwise inferred from scrape
             },
             locale(doc) {
-                reutrn 'page locale'; // (OPTIONAL) return page locale otherwise inferred from scrape
+                return 'page locale'; // (OPTIONAL) return page locale otherwise inferred from scrape
             },
             contentSelector: 'body' // (OPTIONAL) option to finetune where Yoast will look for the content. (only applicable for scraping without content function)
         },
-    }
+    }]
 }
 ```
 3. Make sure to enable CORS for the Sanity domain otherwise the plugin won't be able to fetch your content.
