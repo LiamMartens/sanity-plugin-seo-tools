@@ -7,7 +7,6 @@ import isEqual from 'lodash.isequal';
 import classNames from 'classnames';
 import { withDocument, FormBuilderInput } from 'part:@sanity/form-builder';
 import PatchEvent, { setIfMissing } from '@sanity/form-builder/lib/PatchEvent';
-import Field from '@sanity/form-builder/lib/inputs/ObjectInput/Field';
 import { IType } from '../types/IType';
 import { IYoastPaperOptions } from '../types/IYoastPaperOptions';
 import { IField } from '../types/IField';
@@ -79,7 +78,12 @@ interface IState {
         exactMatchKeyphrase: boolean;
         position: number;
     };
-    imageAltTags: boolean;
+    altTagCount: false | {
+        noAlt: number;
+        withAlt: number;
+        withAltKeyword: number;
+        withAltNonKeyword: number;
+    };
     pageTitleWidth: number;
     keywordCountInUrl: false | {
         keyphraseLength: number;
@@ -124,7 +128,7 @@ class InputContainer extends React.PureComponent<IProps, IState> {
         wordCountInText: 0,
         keywordCount: false,
         keywordInPageTitle: false,
-        imageAltTags: false,
+        altTagCount: false,
         pageTitleWidth: 0,
         keywordCountInUrl: false,
         countSentencesFromText: [],
@@ -198,12 +202,20 @@ class InputContainer extends React.PureComponent<IProps, IState> {
         return 0;
     }
 
+    private get altTagCountPercentage() {
+        const { altTagCount } = this.state;
+        if (altTagCount) {
+            return (altTagCount.withAltKeyword / (altTagCount.noAlt + altTagCount.withAlt));
+        }
+        return 0;
+    }
+
     private performYoastCheck = debounce(() => {
         this.setState({
             auditOngoing: true,
         });
         return new Promise((res, rej) => {
-            const { type, value, document } = this.props;
+            const { type, document } = this.props;
             const { options } = type;
             const baseUrl = options.baseUrl.replace(/\/+$/, '');
             const slug = options.slug(document);
@@ -241,7 +253,7 @@ class InputContainer extends React.PureComponent<IProps, IState> {
                     wordCountInText: researcher.getResearch('wordCountInText'),
                     keywordCount: researcher.getResearch('keywordCount'),
                     keywordInPageTitle: researcher.getResearch('findKeywordInPageTitle'),
-                    imageAltTags: researcher.getResearch('imageAltTags'),
+                    altTagCount: researcher.getResearch('altTagCount'),
                     pageTitleWidth: researcher.getResearch('pageTitleWidth'),
                     keywordCountInUrl: researcher.getResearch('keywordCountInUrl'),
                     countSentencesFromText: researcher.getResearch('countSentencesFromText'),
@@ -297,7 +309,7 @@ class InputContainer extends React.PureComponent<IProps, IState> {
             keywordCount,
             wordCountInText,
             keywordInPageTitle,
-            imageAltTags,
+            altTagCount,
             pageTitleWidth,
             keywordCountInUrl,
             fleschReading,
@@ -351,14 +363,27 @@ class InputContainer extends React.PureComponent<IProps, IState> {
                                         <Result valid={linkStatistics && linkStatistics.externalTotal > 0}>
                                             Outbound links
                                         </Result>
-                                        {!imageAltTags && (
-                                            <Result warning>
-                                                Images on this page do not have alt attributes that reflect the topic of your text.
+                                        {altTagCount && (altTagCount.noAlt + altTagCount.withAlt > 4) && (
+                                            <Result valid={this.altTagCountPercentage >= .3 && this.altTagCountPercentage <= .7}>
+                                                {(valid: boolean) => (
+                                                    valid
+                                                    ? <>Good use of topic in image alt attributes</>
+                                                    : (
+                                                        this.altTagCountPercentage <= .3
+                                                            ? <>Too little images on this page have an alt attribute that reflect the topic of your text. ({this.altTagCountPercentage * 100}%)</>
+                                                            : <>Too many images on this page have alt attribute that reflect the topic of your text. ({this.altTagCountPercentage * 100}%)</>
+                                                    )
+                                                )}
                                             </Result>
                                         )}
                                         {pageTitleWidth === 0 && (
-                                            <Result warning>
-                                                The SEO title is too short.
+                                            <Result valid={false}>
+                                                Be sure to include an SEO title on your page
+                                            </Result>
+                                        )}
+                                        {pageTitleWidth > 600 && (
+                                            <Result valid={false}>
+                                                Your SEO title should not be longer than 600px for optimal visibility in search engines.
                                             </Result>
                                         )}
                                         {keywordCountInUrl && keywordCountInUrl.percentWordMatches < 100 && (
@@ -371,7 +396,7 @@ class InputContainer extends React.PureComponent<IProps, IState> {
 
                                 {openTab === Tabs.READABILITY && (
                                     <div className={styles.tab}>
-                                        <Result valid={this.passiveVoicePercentage <= 10}>
+                                        <Result valid={this.passiveVoicePercentage <= 10} warning={this.passiveVoicePercentage > 10 && this.passiveVoicePercentage < 15}>
                                             {(valid: boolean) => (
                                                 valid
                                                     ? <>No excessive use of passive voice detected</>
