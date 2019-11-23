@@ -6,7 +6,7 @@ import debounce from 'lodash.debounce';
 import isEqual from 'lodash.isequal';
 import classNames from 'classnames';
 import { withDocument, FormBuilderInput } from 'part:@sanity/form-builder';
-import PatchEvent, { setIfMissing } from '@sanity/form-builder/lib/PatchEvent';
+import PatchEvent, { setIfMissing } from 'part:@sanity/form-builder/patch-event';
 import { IType } from '../types/IType';
 import { IYoastPaperOptions } from '../types/IYoastPaperOptions';
 import { IField } from '../types/IField';
