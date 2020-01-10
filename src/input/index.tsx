@@ -22,6 +22,7 @@ enum Tabs {
 interface IOptions {
     baseUrl: string;
     slug: (doc: any) => string;
+    fetchRemote?: boolean;
     content?: (doc: any) => string;
     title?: (doc: any) => string;
     description?: (doc: any) => string;
@@ -215,56 +216,85 @@ class InputContainer extends React.PureComponent<IProps, IState> {
         this.setState({
             auditOngoing: true,
         });
-        return new Promise((res, rej) => {
+        return new Promise(async (res, rej) => {
             const { type, document } = this.props;
             const { options } = type;
             const baseUrl = options.baseUrl.replace(/\/+$/, '');
             const slug = options.slug(document);
             const url = baseUrl + '/' + slug;
-            axios.get(url).then(response => {
-                const content = response.data;
+
+            // get remote doc if desired
+            let doc: Document;
+            if (options.fetchRemote !== false) {
+                const remote = await axios.get(url);
+                const content = remote.data;
                 const parser = new DOMParser();
-                const doc = parser.parseFromString(content, 'text/html');
+                doc = parser.parseFromString(content, 'text/html');
                 Array.from(doc.body.querySelectorAll('script')).forEach(s => s.remove());
-                let langCulture = options.locale ? options.locale(document) : (doc.documentElement.lang || 'en');
-                if (!langCulture.includes('-')) langCulture = langCultureMap[langCulture] || 'en-US';
-                const title = options.title ? options.title(document) : doc.title;
-                const description  = options.description ? options.description(document) : (doc.querySelector('meta[name="description"]') as HTMLMetaElement).content;
-                const paperOptions: IYoastPaperOptions = {
-                    keyword: this.value.focus_keyword || '',
-                    url: slug,
-                    permalink: url,
-                    title,
-                    synonyms: (this.value.focus_synonyms || []).join(','),
-                    description,
-                    locale: langCulture.replace('-', '_'),
-                };
-                const contentBySelector = (options.contentSelector ? doc.querySelector(options.contentSelector) : doc.body);
-                const rawContent = options.content ? options.content(document) : (contentBySelector || doc.body).innerHTML;
-                const paper = new this.YoastSEO.Paper(rawContent, paperOptions);
-                const researcher = new this.YoastSEO.Researcher(paper);
-                this.setState({
-                    initialAudit: false,
-                    auditOngoing: false,
-                    keyphraseLength: researcher.getResearch('keyphraseLength'),
-                    metaDescriptionKeyword: researcher.getResearch('metaDescriptionKeyword'),
-                    linkStatistics: researcher.getResearch('getLinkStatistics'),
-                    keywordInFirstParagraph: researcher.getResearch('findKeywordInFirstParagraph'),
-                    keywordDensity: researcher.getResearch('getKeywordDensity'),
-                    wordCountInText: researcher.getResearch('wordCountInText'),
-                    keywordCount: researcher.getResearch('keywordCount'),
-                    keywordInPageTitle: researcher.getResearch('findKeywordInPageTitle'),
-                    altTagCount: researcher.getResearch('altTagCount'),
-                    pageTitleWidth: researcher.getResearch('pageTitleWidth'),
-                    keywordCountInUrl: researcher.getResearch('keywordCountInUrl'),
-                    countSentencesFromText: researcher.getResearch('countSentencesFromText'),
-                    passiveVoice: researcher.getResearch('passiveVoice'),
-                    sentenceBeginnings: researcher.getResearch('getSentenceBeginnings'),
-                    sentences: researcher.getResearch('sentences'),
-                    fleschReading: researcher.getResearch('calculateFleschReading'),
-                    paragraphLength: researcher.getResearch('getParagraphLength'),
-                    transitionWords: researcher.getResearch('findTransitionWords'),
-                });
+                console.log(doc);
+            } else if (
+                !options.content
+                || !options.title
+                || !options.description
+            ) {
+                throw new Error('When `fetchRemote` is disabled you need to provide all Sanity document based methods to retrieve the content for analysis.');
+            }
+
+            // get "normalized" langculture
+            let langCulture = options.locale ? options.locale(document) : ((doc && doc.documentElement.lang) ? doc.documentElement.lang : 'en');
+            if (!langCulture.includes('-')) langCulture = langCultureMap[langCulture.toLowerCase()] || 'en-US';
+
+            // get content stuff
+            const title = options.title ? options.title(document) : doc.title;
+            const description = (() => {
+                if (options.description) return options.description(document);
+                const el = doc.querySelector<HTMLMetaElement>('meta[name="description"]');
+                if (el) return el.content;
+                return '';
+            })();
+            const rawContent = (() => {
+                if (doc) {
+                    const contentBySelector = options.contentSelector ? doc.querySelector(options.contentSelector) : doc.body;
+                    return (contentBySelector || doc.body).innerHTML;
+                }
+                if (options.content) {
+                    return options.content(document);
+                }
+                return '';
+            })();
+
+            const paperOptions: IYoastPaperOptions = {
+                keyword: this.value.focus_keyword || '',
+                url: slug,
+                permalink: url,
+                title,
+                synonyms: (this.value.focus_synonyms || []).join(','),
+                description,
+                locale: langCulture.replace('-', '_'),
+            };
+            const paper = new this.YoastSEO.Paper(rawContent, paperOptions);
+            const researcher = new this.YoastSEO.Researcher(paper);
+            this.setState({
+                initialAudit: false,
+                auditOngoing: false,
+                keyphraseLength: researcher.getResearch('keyphraseLength'),
+                metaDescriptionKeyword: researcher.getResearch('metaDescriptionKeyword'),
+                linkStatistics: researcher.getResearch('getLinkStatistics'),
+                keywordInFirstParagraph: researcher.getResearch('findKeywordInFirstParagraph'),
+                keywordDensity: researcher.getResearch('getKeywordDensity'),
+                wordCountInText: researcher.getResearch('wordCountInText'),
+                keywordCount: researcher.getResearch('keywordCount'),
+                keywordInPageTitle: researcher.getResearch('findKeywordInPageTitle'),
+                altTagCount: researcher.getResearch('altTagCount'),
+                pageTitleWidth: researcher.getResearch('pageTitleWidth'),
+                keywordCountInUrl: researcher.getResearch('keywordCountInUrl'),
+                countSentencesFromText: researcher.getResearch('countSentencesFromText'),
+                passiveVoice: researcher.getResearch('passiveVoice'),
+                sentenceBeginnings: researcher.getResearch('getSentenceBeginnings'),
+                sentences: researcher.getResearch('sentences'),
+                fleschReading: researcher.getResearch('calculateFleschReading'),
+                paragraphLength: researcher.getResearch('getParagraphLength'),
+                transitionWords: researcher.getResearch('findTransitionWords'),
             });
         });
     }, 2000);
