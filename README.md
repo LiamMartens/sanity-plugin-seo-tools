@@ -18,6 +18,9 @@ export default {
         type: 'seo-tools', // use seo-tools type
         options: {
             baseUrl: 'https://.../', // (REQUIRED) This is the baseUrl for your site
+            baseUrl(doc) {
+                return 'https://.../'; // for dynamic baseUrls
+            },
             slug(doc) { // (REQUIRED) a function to return the sug of the current page, which will be appended to the baseUrl
                 return doc.slug.current;
             },

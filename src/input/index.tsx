@@ -20,7 +20,7 @@ enum Tabs {
 }
 
 interface IOptions {
-    baseUrl: string;
+    baseUrl: string | ((doc: any) => string);
     slug: (doc: any) => string;
     fetchRemote?: boolean;
     content?: (doc: any) => string;
@@ -219,7 +219,10 @@ class InputContainer extends React.PureComponent<IProps, IState> {
         return new Promise(async (res, rej) => {
             const { type, document } = this.props;
             const { options } = type;
-            const baseUrl = options.baseUrl.replace(/\/+$/, '');
+            const baseUrl = (() => {
+                const url = typeof options.baseUrl === 'string' ? options.baseUrl : options.baseUrl(document);
+                return url.replace(/\/+$/, '');
+            })();
             const slug = options.slug(document);
             const url = baseUrl + '/' + slug;
 
