@@ -46,3 +46,9 @@ export default {
 
 ## What does it look like?
 ![SEO tools](https://raw.githubusercontent.com/LiamMartens/sanity-plugin-seo-tools/master/doc/img/plugin.gif)
+
+## Common issues
+### CORS
+The plugin will try to load your `{baseUrl}/{slug}` URL, but this is most likely blocked by CORS because we need to fetch it from the browser. There are 2 ways to solve it
+1. Allow CORS from your Sanity studio domain
+2. Disable `fetchRemote` altogether and provide all methods manually
