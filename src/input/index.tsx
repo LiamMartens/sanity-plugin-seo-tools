@@ -86,7 +86,7 @@ interface IState {
         withAltKeyword: number;
         withAltNonKeyword: number;
     };
-    pageTitleWidth: number;
+    pageTitleLength: number;
     keywordCountInUrl: false | {
         keyphraseLength: number;
         percentWordMatches: number;
@@ -131,7 +131,7 @@ class InputContainer extends React.PureComponent<IProps, IState> {
         keywordCount: false,
         keywordInPageTitle: false,
         altTagCount: false,
-        pageTitleWidth: 0,
+        pageTitleLength: 0,
         keywordCountInUrl: false,
         countSentencesFromText: [],
         passiveVoice: false,
@@ -289,7 +289,7 @@ class InputContainer extends React.PureComponent<IProps, IState> {
                 keywordCount: researcher.getResearch('keywordCount'),
                 keywordInPageTitle: researcher.getResearch('findKeywordInPageTitle'),
                 altTagCount: researcher.getResearch('altTagCount'),
-                pageTitleWidth: researcher.getResearch('pageTitleWidth'),
+                pageTitleLength: researcher.getResearch('pageTitleLength'),
                 keywordCountInUrl: researcher.getResearch('keywordCountInUrl'),
                 countSentencesFromText: researcher.getResearch('countSentencesFromText'),
                 passiveVoice: researcher.getResearch('passiveVoice'),
@@ -344,7 +344,7 @@ class InputContainer extends React.PureComponent<IProps, IState> {
             wordCountInText,
             keywordInPageTitle,
             altTagCount,
-            pageTitleWidth,
+            pageTitleLength,
             keywordCountInUrl,
             fleschReading,
         } = this.state;
@@ -410,12 +410,12 @@ class InputContainer extends React.PureComponent<IProps, IState> {
                                                 )}
                                             </Result>
                                         )}
-                                        {pageTitleWidth === 0 && (
+                                        {pageTitleLength === 0 && (
                                             <Result valid={false}>
                                                 Be sure to include an SEO title on your page
                                             </Result>
                                         )}
-                                        {pageTitleWidth > 600 && (
+                                        {pageTitleLength > 600 && (
                                             <Result valid={false}>
                                                 Your SEO title should not be longer than 600px for optimal visibility in search engines.
                                             </Result>

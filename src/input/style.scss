@@ -1,9 +1,12 @@
-$color-light: #fff;
-$color-gray: #f1f1f1;
-$color-sanity: #156dff;
+:root {
+    --seo-tools--color--dark: #000;
+    --seo-tools--color--light: #fff;
+    --seo-tools--color--gray: #f1f1f1;
+    --seo-tools--color-accent: #156dff;
+}
 
 .seotools {
-    border-bottom: .1rem solid $color-gray;
+    border-bottom: .1rem solid var(--seo-tools--color--gray);
     padding-bottom: 2rem;
     margin-bottom: 4rem;
 
@@ -17,11 +20,13 @@ $color-sanity: #156dff;
         position: relative;
         margin-bottom: 1rem;
         padding: .8rem;
-        background: $color-gray;
+        background: var(--seo-tools--color--gray);
+        color: var(--seo-tools--color--dark);
     }
 
     .loading {
         margin: 0;
+        color: var(--seo-tools--color--dark);
         animation: sanity-plugin-seo-tools--audit-loading 1s alternate infinite;
 
         &.overlay {
@@ -34,7 +39,7 @@ $color-sanity: #156dff;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba($color-gray, .96);
+            background: var(--seo-tools--color--gray);
         }
     }
 
@@ -49,16 +54,16 @@ $color-sanity: #156dff;
         .switch {
             padding: 5px 10px;
             font-size: 14px;
-            border: 1px solid $color-sanity;
+            border: 1px solid var(--seo-tools--color-accent);
             border-right-width: 0;
-            color: $color-sanity;
+            color: var(--seo-tools--color-accent);
             outline: 0;
             cursor: pointer;
-            background: $color-light;
+            background: var(--seo-tools--color--light);
         
             &:disabled {
-                color: $color-light;
-                background: $color-sanity;
+                color: var(--seo-tools--color--light);
+                background: var(--seo-tools--color-accent);
             }
         
             &:first-child {

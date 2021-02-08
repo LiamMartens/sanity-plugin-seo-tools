@@ -1,0 +1,8 @@
+{
+  "name": "node",
+  "image": "node:14",
+"containerUser": "node",
+"extensions": [
+	"guillaumedoutriaux.name-that-color"
+]
+}

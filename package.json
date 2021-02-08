@@ -1,6 +1,6 @@
 {
   "name": "sanity-plugin-seo-tools",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "license": "GPL-3.0",
   "author": {
     "name": "Liam Martens",
@@ -38,39 +38,41 @@
     "watch": "run-p \"build:* -- -w\""
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.4",
-    "@babel/core": "^7.6.4",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/preset-env": "^7.6.3",
-    "@babel/preset-react": "^7.6.3",
-    "@babel/preset-typescript": "^7.6.0",
-    "@sanity/check": "^0.142.6",
-    "@sanity/form-builder": "^0.142.7",
-    "@types/react": "^16.9.5",
-    "node-sass": "^4.12.0",
+    "@babel/cli": "^7.12.13",
+    "@babel/core": "^7.12.13",
+    "@babel/plugin-proposal-class-properties": "^7.12.13",
+    "@babel/plugin-transform-runtime": "^7.12.15",
+    "@babel/preset-env": "^7.12.13",
+    "@babel/preset-react": "^7.12.13",
+    "@babel/preset-typescript": "^7.12.13",
+    "@rollup/plugin-babel": "^5.2.3",
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^11.1.1",
+    "@sanity/check": "^2.0.9",
+    "@sanity/form-builder": "^2.3.3",
+    "@types/react": "^17.0.1",
+    "node-sass": "^5.0.0",
     "npm-run-all": "^4.1.5",
-    "postcss": "^7.0.18",
-    "react": "^16.10.2",
-    "rollup": "^1.23.1",
-    "rollup-plugin-babel": "^4.3.3",
+    "postcss": "^8.2.5",
+    "react": "^17.0.1",
+    "rollup": "^2.38.5",
     "rollup-plugin-cleaner": "^1.0.0",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-peer-deps-external": "^2.2.0",
-    "rollup-plugin-postcss": "^2.0.3",
-    "typescript": "^3.6.4"
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.0",
+    "typescript": "^4.1.3"
   },
   "peerDependencies": {
     "@sanity/form-builder": "^0.0.0",
     "react": "^16.0.0"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "@babel/runtime": "^7.12.13",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "lodash.debounce": "^4.0.8",
     "lodash.isequal": "^4.5.0",
-    "regenerator-runtime": "^0.13.3",
-    "yoastseo": "^1.16.0"
+    "regenerator-runtime": "^0.13.7",
+    "yoastseo": "^1.90.0"
   }
 }

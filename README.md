@@ -43,6 +43,15 @@ export default {
 }
 ```
 3. Make sure to enable CORS for the Sanity domain otherwise the plugin won't be able to fetch your content.
+4. (OPTIONAL) You can add a file called `seo-tools.json` in your studio's `config` folder. Following options can be set:
+```
+{
+    "focus_keyword_required": false, // makes the focus_keyword field required
+    "focus_synonyms_required": false, // makes the focus_synonyms field required
+    "seo_title_requied": false, // makes the seo_title field required
+    "meta_description_required": false // makes the meta_description field required
+}
+```
 
 ## What does it look like?
 ![SEO tools](https://raw.githubusercontent.com/LiamMartens/sanity-plugin-seo-tools/master/doc/img/plugin.gif)

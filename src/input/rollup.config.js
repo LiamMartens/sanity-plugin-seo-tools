@@ -7,7 +7,7 @@ module.exports = Object.assign({}, baseConfig, {
         {
             file: path.resolve(__dirname, '../../lib/input/index.js'),
             format: 'cjs',
-            sourceMap: true
+            sourcemap: true
         }
     ],
 });
