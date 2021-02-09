@@ -1,5 +1,11 @@
-import config from 'config:seo-tools';
 import Input from '../input';
+
+let config: typeof import('config:seo-tools').default = {};
+try {
+    config = require('config:seo-tools');
+} catch (err) {
+    console.warn('A config file was added to this plugin, please make sure to add it.')
+}
 
 export default {
     name: 'seo-tools',
@@ -24,7 +30,7 @@ export default {
             title: 'SEO Title',
             name: 'seo_title',
             type: 'string',
-            validation: config.seo_title_requied ? Rule => Rule.required().error('SEO title is required') : undefined
+            validation: config.seo_title_required ? Rule => Rule.required().error('SEO title is required') : undefined
         },
         {
             title: 'Meta description',

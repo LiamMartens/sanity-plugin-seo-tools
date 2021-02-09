@@ -48,7 +48,7 @@ export default {
 {
     "focus_keyword_required": false, // makes the focus_keyword field required
     "focus_synonyms_required": false, // makes the focus_synonyms field required
-    "seo_title_requied": false, // makes the seo_title field required
+    "seo_title_required": false, // makes the seo_title field required
     "meta_description_required": false // makes the meta_description field required
 }
 ```
@@ -61,3 +61,5 @@ export default {
 The plugin will try to load your `{baseUrl}/{slug}` URL, but this is most likely blocked by CORS because we need to fetch it from the browser. There are 2 ways to solve it
 1. Allow CORS from your Sanity studio domain
 2. Disable `fetchRemote` altogether and provide all methods manually
+### Can't resolve "config:seo-tools"
+In v1.1.0 we added a config file. To get rid of this error when upgrading an instance simply add a file called `seo-tools.json` to your `config` folder and set it to an empty object `{}`.

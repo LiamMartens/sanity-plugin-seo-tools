@@ -1,4 +1,8 @@
 # Changelog
+## v1.1.1
+* Fixed typo to in `seo_title_required`
+* Fallbackt to not using config file
+
 ## v1.1.0
 * [#16](https://github.com/LiamMartens/sanity-plugin-seo-tools/issues/16) A bug was fixed where the SEO title would not be detected correctly
 * [#22](https://github.com/LiamMartens/sanity-plugin-seo-tools/issues/22) Updated to CSS variables for theming
