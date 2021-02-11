@@ -1,4 +1,7 @@
 # Changelog
+## v1.1.2
+* Include `config.dist.json` in npm package so Sanity can automatically create it.
+
 ## v1.1.1
 * Fixed typo to in `seo_title_required`
 * Fallbackt to not using config file
