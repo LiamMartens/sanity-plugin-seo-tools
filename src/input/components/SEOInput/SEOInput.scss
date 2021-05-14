@@ -1,0 +1,12 @@
+:root {
+    --seo-tools--color--dark: #000;
+    --seo-tools--color--light: #fff;
+    --seo-tools--color--gray: #f1f1f1;
+    --seo-tools--color-accent: #156dff;
+}
+
+.seotools {
+    border-bottom: .1rem solid var(--seo-tools--color--gray);
+    padding-bottom: 2rem;
+    margin-bottom: 4rem;
+}

@@ -1,10 +1,11 @@
 {
     "compilerOptions": {
       "module": "esnext",
-      "noImplicitAny": false,
+      "noImplicitAny": true,
       "removeComments": true,
       "noLib": false,
       "skipLibCheck": true,
+      "strictNullChecks": true,
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "allowSyntheticDefaultImports": true,

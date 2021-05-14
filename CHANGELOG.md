@@ -1,4 +1,7 @@
 # Changelog
+## v2.0.0
+* Revised SEO tools UI with `@sanity/ui`
+
 ## v1.1.2
 * Include `config.dist.json` in npm package so Sanity can automatically create it.
 

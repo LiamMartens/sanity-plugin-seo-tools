@@ -1,4 +1,4 @@
-export const langCultureMap = {
+export const LangCultureMap = {
     "af": "af-ZA",
     "ar": "ar-SA",
     "az": "az-Latn-AZ",
