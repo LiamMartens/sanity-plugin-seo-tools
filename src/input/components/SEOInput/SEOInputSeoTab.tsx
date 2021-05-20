@@ -36,14 +36,14 @@ export const SEOInputSeoTab: React.FunctionComponent<Props> = ({ hidden, insight
                     <InsightResult valid={insights.keyphraseLength > 0 && insights.keywordInPageTitle && insights.keywordInPageTitle.allWordsFound}>
                         {(valid) => valid ? <>Keyphrase found in page title</> : <>Not all the words from your keyphrase "{value?.focus_keyword ?? ''}" appear in the SEO title</>}
                     </InsightResult>
-                    <InsightResult valid={insights.keyphraseLength > 0 && insights.keywordInFirstParagraph}>
+                    <InsightResult valid={insights.keyphraseLength > 0 && insights.firstParagraph && insights.firstParagraph.foundInParagraph}>
                         {(valid) => valid ? <>Keyphrase was found in your content introduction</> : <>Your keyphrase or its synonyms do not appear in the first paragraph.</>}
                     </InsightResult>
                     <InsightResult valid={insights.keyphraseLength > 0 && insights.keywordCount && insights.keywordCount.count >= idealKeywordDensity}>
                         {(valid) => valid ? <>Good keyphrase density in your content</> :  <>The focus keyphrase was found {insights.keywordCount ? insights.keywordCount.count : 0} times. That's less than the recommended minimum of {idealKeywordDensity} times for a text of this length.</>}
                     </InsightResult>
-                    <InsightResult valid={insights.linkStatistics && insights.linkStatistics.internalTotal > 0}>Internal links</InsightResult>
-                    <InsightResult valid={insights.linkStatistics && insights.linkStatistics.externalTotal > 0}>Outbound links</InsightResult>
+                    <InsightResult valid={insights.getLinkStatistics && insights.getLinkStatistics.internalTotal > 0}>Internal links</InsightResult>
+                    <InsightResult valid={insights.getLinkStatistics && insights.getLinkStatistics.externalTotal > 0}>Outbound links</InsightResult>
                     {(insights.altTagCount && (insights.altTagCount.noAlt + insights.altTagCount.withAlt > 4)) && (
                         <InsightResult valid={altTagCountPercentage >= .3 && altTagCountPercentage <= .7}>
                             {(valid) => valid
@@ -56,10 +56,10 @@ export const SEOInputSeoTab: React.FunctionComponent<Props> = ({ hidden, insight
                             }
                         </InsightResult>
                     )}
-                    {insights.pageTitleLength === 0 && (
+                    {insights.pageTitleWidth === 0 && (
                         <InsightResult valid={false}>Be sure to include an SEO title on your page</InsightResult>
                     )}
-                    {insights.pageTitleLength > 600 && (
+                    {insights.pageTitleWidth > 600 && (
                         <InsightResult valid={false}>Your SEO title should not be longer than 600px for optimal visibility in search engines.</InsightResult>
                     )}
                     {(insights.keywordCountInUrl && insights.keywordCountInUrl.percentWordMatches < 100) && (
