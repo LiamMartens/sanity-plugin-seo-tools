@@ -1,4 +1,7 @@
 # Changelog
+## v2.2.0
+* [#28] Added `part:sanity-plugin-seo-tools/schema-customizer` part to be able to customize the schema
+
 ## v2.1.0
 * Bumped dependencies from dependabot
 * Updated linkStatistics, findKeywordInFirstParagraph and pageTitleLength researchers (Author [kjmph](https://github.com/kjmph))

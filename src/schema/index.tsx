@@ -1,4 +1,5 @@
 import Input from '../input';
+import schemaCustomizer from 'part:sanity-plugin-seo-tools/schema-customizer?';
 
 let config: typeof import('config:seo-tools').default = {};
 try {
@@ -7,7 +8,7 @@ try {
     console.warn('A config file was added to this plugin, please make sure to add it.')
 }
 
-export default {
+const seoSchema = {
     name: 'seo-tools',
     type: 'object',
     title: 'SEO Tools',
@@ -37,6 +38,8 @@ export default {
             name: 'meta_description',
             type: 'text',
             validation: config.meta_description_required ? (Rule: any) => Rule.required().error('Meta description is required') : undefined
-        }
+        },
     ]
 }
+
+export default schemaCustomizer ? schemaCustomizer(seoSchema) : seoSchema;

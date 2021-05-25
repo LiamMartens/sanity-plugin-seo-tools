@@ -56,6 +56,36 @@ export default {
 ## What does it look like?
 ![SEO tools](https://raw.githubusercontent.com/LiamMartens/sanity-plugin-seo-tools/master/doc/img/plugin.gif)
 
+## Available parts for implementation
+### part:sanity-plugin-seo-tools/schema-customizer
+It is possible to implement this studio part ([The Parts System](https://www.sanity.io/docs/parts)) to customize the object schema provided by the `seo-tools` plugin.
+
+To do this you will need to add an implementation to your studio's `sanity.json`:
+```json
+{
+    ...,
+    "parts": [
+        {
+        "implements": "part:sanity-plugin-seo-tools/schema-customizer",
+        "path": "./schemaCustomizer.js"
+        }
+    ]
+}
+```
+
+And implement the `schemaCustomizer.js` file; eg:
+```js
+export default (schema) => {
+    schema.fields.push({
+        name: 'my_field',
+        title: 'My field',
+        type: 'string',
+    })
+    return schema;
+}
+```
+
+
 ## Common issues
 ### CORS
 The plugin will try to load your `{baseUrl}/{slug}` URL, but this is most likely blocked by CORS because we need to fetch it from the browser. There are 2 ways to solve it

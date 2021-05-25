@@ -1,6 +1,6 @@
 {
   "name": "sanity-plugin-seo-tools",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "license": "GPL-3.0",
   "author": {
     "name": "Liam Martens",
@@ -78,8 +78,8 @@
     "lodash.debounce": "^4.0.8",
     "lodash.isequal": "^4.5.0",
     "regenerator-runtime": "^0.13.7",
+    "string-pixel-width": "^1.10.0",
     "use-debounce": "^6.0.1",
-    "yoastseo": "^1.90.0",
-    "string-pixel-width": "^1.10.0"
+    "yoastseo": "^1.90.0"
   }
 }

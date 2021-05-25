@@ -3,6 +3,24 @@ declare module '*.scss' {
     const c: { [key: string]: string; };
     export = c;
 }
+declare module 'part:sanity-plugin-seo-tools/schema-customizer?' {
+    type TSanityField = {
+        name: string;
+        type: string;
+        title: string;
+        [key: string]: any;
+    }
+
+    type TSchema = {
+        name: string;
+        title: string;
+        fields: TSanityField[];
+        [key: string]: any;
+    }
+
+    const customizer: ((input: TSchema) => TSchema) | undefined;
+    export default customizer;
+}
 declare module 'config:seo-tools' {
     const config: {
         focus_keyword_required?: boolean;
