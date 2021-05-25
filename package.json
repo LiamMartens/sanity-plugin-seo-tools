@@ -79,6 +79,7 @@
     "lodash.isequal": "^4.5.0",
     "regenerator-runtime": "^0.13.7",
     "use-debounce": "^6.0.1",
-    "yoastseo": "^1.90.0"
+    "yoastseo": "^1.90.0",
+    "string-pixel-width": "^1.10.0"
   }
 }

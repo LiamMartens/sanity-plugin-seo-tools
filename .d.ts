@@ -29,7 +29,7 @@ declare module 'yoastseo' {
         constructor(paper: Paper);
         getResearch(type: 'keyphraseLength'): number;
         getResearch(type: 'metaDescriptionKeyword'): number;
-        getResearch(type: 'linkStatistics'): false | {
+        getResearch(type: 'getLinkStatistics'): false | {
             total: number;
             totalNaKeyword: number;
             keyword: {
@@ -46,7 +46,11 @@ declare module 'yoastseo' {
             otherDofollow: number;
             otherNofollow: number;
         };
-        getResearch(type: 'findKeywordInFirstParagraph'): boolean;
+        getResearch(type: 'firstParagraph'): false | {
+            foundInOneSentence: boolean;
+            foundInParagraph: boolean;
+            keyphraseOrSynonym: string;
+        };
         getResearch(type: 'getKeywordDensity'): number;
         getResearch(type: 'wordCountInText'): number;
         getResearch(type: 'keywordCount'): false | {
@@ -67,7 +71,7 @@ declare module 'yoastseo' {
             withAltKeyword: number;
             withAltNonKeyword: number;
         };
-        getResearch(type: 'pageTitleLength'): number;
+        getResearch(type: 'pageTitleWidth'): number;
         getResearch(type: 'keywordCountInUrl'): false | {
             keyphraseLength: number;
             percentWordMatches: number;
@@ -98,3 +102,11 @@ declare module 'yoastseo' {
         };
     }
 }
+declare module 'string-pixel-width' {
+    function pixelWidth(input: string,
+                        settings?: {
+                            font?: string,
+                            size?: number,
+                        }): number;
+    export default pixelWidth;
+};
