@@ -1,4 +1,8 @@
 # Changelog
+## v2.1.0
+* Bumped dependencies from dependabot
+* Updated linkStatistics, findKeywordInFirstParagraph and pageTitleLength researchers (Author [kjmph](https://github.com/kjmph))
+
 ## v2.0.0
 * Revised SEO tools UI with `@sanity/ui`
 
