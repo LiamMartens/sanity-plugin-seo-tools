@@ -5,8 +5,8 @@ When proposing backend solutions for a client website many will request somethin
 
 ## How to use
 1. Install the plugin using the Sanity CLI `sanity install seo-tools`
-2. Configure your document with the SEO tools
-*The result of the `content(doc)` function should represent the final result of but does not have to be 100% accurate. It should act as a real-time representation of the resulting content*
+2. Configure your document with the SEO tools.
+*The result of the `content(doc)` function should represent the final result of (??)  but does not have to be 100% accurate. It should act as a real-time representation of the resulting content*
 ```
 export default {
     type: 'document',
@@ -21,7 +21,7 @@ export default {
             baseUrl(doc) {
                 return 'https://.../'; // for dynamic baseUrls
             },
-            slug(doc) { // (REQUIRED) a function to return the sug of the current page, which will be appended to the baseUrl
+            slug(doc) { // (REQUIRED) a function to return the slug of the current page, which will be appended to the baseUrl
                 return doc.slug.current;
             },
             fetchRemote: true, // Can be set to false to disable fetching the remote source (you will need to pass the content helpers for analysis)
