@@ -1,4 +1,9 @@
 # Changelog
+
+## v2.2.1
+* Minor fix to `NaN` results
+* Removed `.scss` files and cleaned up unused files
+
 ## v2.2.0
 * [#28] Added `part:sanity-plugin-seo-tools/schema-customizer` part to be able to customize the schema
 

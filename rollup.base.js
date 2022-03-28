@@ -16,9 +16,9 @@ module.exports = {
                 camelCase: true,
                 generateScopedName: '[hash:base64]',
             },
-            autoModules: false,
+            autoModules: true,
             minimize: false,
-            extensions: ['.css', '.scss']
+            extensions: ['.css']
         }),
         json(),
         nodeResolve({

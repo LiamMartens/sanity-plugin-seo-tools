@@ -1,6 +1,6 @@
-import { IType } from './IType';
+import { IType } from "./IType";
 
 export interface IField {
-    name: string;
-    type: IType;
+  name: string;
+  type: IType;
 }
