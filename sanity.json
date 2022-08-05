@@ -5,24 +5,8 @@
     },
     "parts": [
       {
-        "name": "part:sanity-plugin-seo-tools/schema-customizer",
-        "description": "Can be used to customize the fields of the seo-tools schema"
-      },
-      {
-        "name": "part:@sanity/form-builder/input/seo-tools",
-        "description": "seo-tools input"
-      },
-      {
-        "implements": "part:@sanity/form-builder/input/seo-tools",
-        "path": "input/index.js"
-      },
-      {
-        "name": "part:@sanity/form-builder/input/seo-tools/schema",
-        "description": "SEO tools for Sanity"
-      },
-      {
-        "implements": "part:@sanity/base/schema-type",
-        "path": "schema/index.js"
+        "name": "part:sanity-plugin-seo-tools/config",
+        "description": "Can be used to customize the plugin config"
       }
     ]
   }

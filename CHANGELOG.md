@@ -1,5 +1,10 @@
 # Changelog
 
+## v3.0.0
+**BREAKING**
+**In the new version of this plugin the custom input has been replaced with a custom pane and the schema is no longer pre-defined allowing you to set-up your own SEO fields.**
+* Updated with pane view similar to `sanity-plugin-seo-pane` but with local rendering support and more customizable options.
+
 ## v2.2.1
 * Minor fix to `NaN` results
 * Removed `.scss` files and cleaned up unused files

@@ -1,2 +1,9 @@
+# node
 node_modules
+
+# build
 lib
+types
+
+# old
+src.bak

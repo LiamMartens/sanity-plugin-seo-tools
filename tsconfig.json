@@ -1,34 +1,31 @@
 {
-    "compilerOptions": {
-      "module": "esnext",
-      "noImplicitAny": true,
-      "removeComments": true,
-      "noLib": false,
-      "skipLibCheck": true,
-      "strictNullChecks": true,
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "allowSyntheticDefaultImports": true,
-      "declaration": true,
-      "emitDeclarationOnly": true,
-      "outDir": "./lib",
-      "moduleResolution": "node",
-      "target": "es5",
-      "jsx": "react",
-      "lib": [
-        "es2017.object",
-        "es2017",
-        "es2016",
-        "es2015",
-        "dom"
-      ]
-    },
-    "include": [
-      ".d.ts",
-        "./src"
-    ],
-    "exclude": [
-      "**/node_modules"
+  "compilerOptions": {
+    "module": "esnext",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "noLib": false,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "outDir": "./lib",
+    "moduleResolution": "node",
+    "target": "es5",
+    "jsx": "react",
+    "lib": [
+      "es2017.object",
+      "es2017",
+      "es2016",
+      "es2015",
+      "dom"
     ]
-  }
-  
+  },
+  "include": [
+    ".d.ts",
+    "./src"
+  ],
+  "exclude": [
+    "**/node_modules"
+  ]
+}
