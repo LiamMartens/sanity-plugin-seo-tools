@@ -1,36 +1,17 @@
-declare module "part:@sanity/*";
-declare module "*.module.css" {
+declare module 'part:@sanity/*';
+declare module '*.module.css' {
   const c: { [key: string]: string };
   export = c;
 }
-declare module "part:sanity-plugin-seo-tools/schema-customizer?" {
-  type TSanityField = {
-    name: string;
-    type: string;
-    title: string;
-    [key: string]: any;
-  };
-
-  type TSchema = {
-    name: string;
-    title: string;
-    fields: TSanityField[];
-    [key: string]: any;
-  };
-
-  const customizer: ((input: TSchema) => TSchema) | undefined;
-  export default customizer;
+declare module 'react-serp-preview' {
+  const SerpPreview: import('react').FC<{
+    title: string
+    metaDescription: string
+    url: string
+  }>
+  export default SerpPreview
 }
-declare module "config:seo-tools" {
-  const config: {
-    focus_keyword_required?: boolean;
-    focus_synonyms_required?: boolean;
-    seo_title_required?: boolean;
-    meta_description_required?: boolean;
-  };
-  export default config;
-}
-declare module "yoastseo" {
+declare module 'yoastseo' {
   export class Paper {
     constructor(
       html: string,
@@ -48,9 +29,9 @@ declare module "yoastseo" {
   }
   export class Researcher {
     constructor(paper: Paper);
-    getResearch(type: "keyphraseLength"): number;
-    getResearch(type: "metaDescriptionKeyword"): number;
-    getResearch(type: "getLinkStatistics"):
+    getResearch(type: 'keyphraseLength'): number;
+    getResearch(type: 'metaDescriptionKeyword'): number;
+    getResearch(type: 'getLinkStatistics'):
       | false
       | {
           total: number;
@@ -69,16 +50,16 @@ declare module "yoastseo" {
           otherDofollow: number;
           otherNofollow: number;
         };
-    getResearch(type: "firstParagraph"):
+    getResearch(type: 'firstParagraph'):
       | false
       | {
           foundInOneSentence: boolean;
           foundInParagraph: boolean;
           keyphraseOrSynonym: string;
         };
-    getResearch(type: "getKeywordDensity"): number;
-    getResearch(type: "wordCountInText"): number;
-    getResearch(type: "keywordCount"):
+    getResearch(type: 'getKeywordDensity'): number;
+    getResearch(type: 'wordCountInText'): number;
+    getResearch(type: 'keywordCount'):
       | false
       | {
           count: number;
@@ -86,7 +67,7 @@ declare module "yoastseo" {
           markings: any[];
           matches: string[];
         };
-    getResearch(type: "findKeywordInPageTitle"):
+    getResearch(type: 'findKeywordInPageTitle'):
       | false
       | {
           allWordsFound: boolean;
@@ -94,7 +75,7 @@ declare module "yoastseo" {
           exactMatchKeyphrase: boolean;
           position: number;
         };
-    getResearch(type: "altTagCount"):
+    getResearch(type: 'altTagCount'):
       | false
       | {
           noAlt: number;
@@ -102,36 +83,36 @@ declare module "yoastseo" {
           withAltKeyword: number;
           withAltNonKeyword: number;
         };
-    getResearch(type: "pageTitleWidth"): number;
-    getResearch(type: "keywordCountInUrl"):
+    getResearch(type: 'pageTitleWidth'): number;
+    getResearch(type: 'keywordCountInUrl'):
       | false
       | {
           keyphraseLength: number;
           percentWordMatches: number;
         };
-    getResearch(type: "countSentencesFromText"): string[];
-    getResearch(type: "passiveVoice"):
+    getResearch(type: 'countSentencesFromText'): string[];
+    getResearch(type: 'passiveVoice'):
       | false
       | {
           passives: string[];
           total: number;
         };
-    getResearch(type: "getSentenceBeginnings"):
+    getResearch(type: 'getSentenceBeginnings'):
       | false
       | {
           word: string;
           count: number;
           sentences: string[];
         }[];
-    getResearch(type: "sentences"): string[];
-    getResearch(type: "calculateFleschReading"): number;
-    getResearch(type: "getParagraphLength"):
+    getResearch(type: 'sentences'): string[];
+    getResearch(type: 'calculateFleschReading'): number;
+    getResearch(type: 'getParagraphLength'):
       | false
       | {
           wordCount: number;
           text: string;
         }[];
-    getResearch(type: "findTransitionWords"):
+    getResearch(type: 'findTransitionWords'):
       | false
       | {
           sentenceResults: {
@@ -142,8 +123,35 @@ declare module "yoastseo" {
           transitionWordSentences: number;
         };
   }
+
+  export type AssessmentResult = {
+    score: number
+    text :string
+  }
+
+  export type AssessmentCategory = import('./src/constants/AssessmentCategory').AssessmentCategory
+  export type AssessmentRating = 'error' | 'feedback' | 'bad' | 'ok' | 'good' | ''
+  export class Assessment {
+    constructor(...args: any[])
+    getResult(paper: Paper, researcher: Researcher, i18n: import('jed')): AssessmentResult
+  }
+
+  export const assessments: Record<
+    AssessmentCategory,
+    Record<string, Assessment | typeof Assessment>
+  >
+
+  export const helpers: {
+    scoreToRating(score: number): AssessmentRating
+  }
 }
-declare module "string-pixel-width" {
+
+declare module 'yoastseo/src/config/content/default.js' {
+  const config: Record<string, any>
+  export default config
+}
+
+declare module 'string-pixel-width' {
   function pixelWidth(
     input: string,
     settings?: {
@@ -152,4 +160,14 @@ declare module "string-pixel-width" {
     }
   ): number;
   export default pixelWidth;
+}
+declare module 'jed' {
+  export default class Jed {
+    constructor(opts: {
+      domain: string
+      locale_data: Record<string, (
+        Record<string, unknown>
+      )>
+    })
+  }
 }
