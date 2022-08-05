@@ -58,7 +58,7 @@ export const getYoastInsightsForContent = (
           && value?.hasOwnProperty('getResult')
         ) {
           const result = value.getResult(paper, researcher, i18n)
-          if (result.text) {
+          if (result?.text) {
             acc[category as AssessmentCategory].push({
               ...result,
               rating: YoastSEO.helpers.scoreToRating(result.score),
@@ -68,7 +68,7 @@ export const getYoastInsightsForContent = (
           const configKey = get(AssessmentClassConfigKeyMap, name, null) as string | null | undefined
           const config = configKey ? get(yoastseoDefaultConfig, configKey, {}) : {}
           const result = new value(config).getResult(paper, researcher, i18n)
-          if (result.text) {
+          if (result?.text) {
             acc[category as AssessmentCategory].push({
               ...result,
               rating: YoastSEO.helpers.scoreToRating(result.score),

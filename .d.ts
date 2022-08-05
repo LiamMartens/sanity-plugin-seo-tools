@@ -133,7 +133,7 @@ declare module 'yoastseo' {
   export type AssessmentRating = 'error' | 'feedback' | 'bad' | 'ok' | 'good' | ''
   export class Assessment {
     constructor(...args: any[])
-    getResult(paper: Paper, researcher: Researcher, i18n: import('jed')): AssessmentResult
+    getResult(paper: Paper, researcher: Researcher, i18n: import('jed')): AssessmentResult | null
   }
 
   export const assessments: Record<
