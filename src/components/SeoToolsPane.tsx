@@ -11,7 +11,7 @@ type Props = React.PropsWithChildren<{
   }
 }>
 
-export const SeoToolsPane: React.FC<Props> = ({ children, options, document }) => {
+export const SeoToolsPane: React.FC<Props> = ({ options, document }) => {
   const contextValue = useMemo<SeoToolsContextValue>(() => ({
     fetch: true,
     select: () => ({}),
@@ -22,8 +22,8 @@ export const SeoToolsPane: React.FC<Props> = ({ children, options, document }) =
 
   return (
     <SeoToolsContext.Provider value={contextValue}>
-      {document?.displayed && <SeoToolsPaneView document={document?.displayed} />}
-      {!document?.displayed && <SeoToolsPaneEmptyView />}
+      {(document?.displayed?._rev) && <SeoToolsPaneView document={document?.displayed} />}
+      {!document?.displayed?._rev && <SeoToolsPaneEmptyView />}
     </SeoToolsContext.Provider>
   )
 }
