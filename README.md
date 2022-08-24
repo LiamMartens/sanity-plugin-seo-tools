@@ -1,5 +1,7 @@
 # SEO Tools for Sanity
 
+> Upgrading from V2 to V3 is a breaking change. The `seo-tools` input has been replaced by a SEO pane which needs to be set-up using a custom desk structure as per the installation guide. Secondly, the previously automatically provided fields (focus keyword, seo title, ...) are no longer provided and should be manually defined in your schema and provided using the `select` property.
+
 ## Background
 When proposing backend solutions for a client website many will request something like WordPress as this is a system they are familiar with. One of the tools that is available for WordPress is Yoast to give the user feedback on the SEO of the current page. This plugin can bring those insights into Sanity for your clients so you can finally start developing those projects with Sanity. (it is powered by YoastSEO.js)  
 
