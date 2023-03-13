@@ -20,7 +20,7 @@ export const SeoToolsPaneView: React.FC<Props> = ({ document }) => {
   const config = useContext(SeoToolsContext)
   const [currentTab, setCurrentTab] = useState(AssessmentCategory.SEO)
 
-  const seoData = useSWR(['seoData', document._id, document._rev, config], async (key, id, rev, config) => {
+  const seoData = useSWR(['seoData', document._id, document._rev, config], async ([key, id, rev, config]) => {
     const [YoastSEO, seoFields, productionUrl] = await Promise.all([
       import('yoastseo'),
       config.select(document),
