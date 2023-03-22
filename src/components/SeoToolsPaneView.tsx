@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useState } from 'react'
-import styled from 'styled-components'
 import useSWR from 'swr'
+import YoastSEO from 'yoastseo'
 import SerpPreview from 'react-serp-preview'
 import { SeoToolsContext } from '../context'
 import { InvalidConfigurationError } from '../errors'
@@ -21,8 +21,7 @@ export const SeoToolsPaneView: React.FC<Props> = ({ document }) => {
   const [currentTab, setCurrentTab] = useState(AssessmentCategory.SEO)
 
   const seoData = useSWR(['seoData', document._id, document._rev, config], async ([key, id, rev, config]) => {
-    const [YoastSEO, seoFields, productionUrl] = await Promise.all([
-      import('yoastseo'),
+    const [seoFields, productionUrl] = await Promise.all([
       config.select(document),
       config.resolveProductionUrl(document),
     ]);
