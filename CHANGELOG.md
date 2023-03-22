@@ -2,6 +2,8 @@
 
 ## v3.2.0
 * Updated dependencies
+* Replaced dynamic import to YoastSEO with direct import
+* Fixed bug in `getYoastInsightsForContent`
 
 ## v3.1.0
 * Moved `yoastseo` to peerdependencies

@@ -48,6 +48,7 @@ export const getYoastInsightsForContent = (
     locale_data: { 'js-text-analysis': { '': {} } },
   })
 
+  console.debug('YoastSEO.assessments', YoastSEO.assessments)
   return Object.entries(YoastSEO.assessments).reduce<Record<AssessmentCategory, (AssessmentResult & {
     rating: AssessmentRating
   })[]>>((acc, [category, assessments]) => {
@@ -77,11 +78,13 @@ export const getYoastInsightsForContent = (
         }
       }
     });
-    acc[category as AssessmentCategory].sort((a, b) => {
-      if (a.rating === 'feedback') return -1
-      if (b.rating === 'feedback') return 1
-      return a.score < b.score ? -1 : 1
-    })
+    if (Object.prototype.hasOwnProperty.call(acc, category)) {
+      acc[category as AssessmentCategory].sort((a, b) => {
+        if (a.rating === 'feedback') return -1
+        if (b.rating === 'feedback') return 1
+        return a.score < b.score ? -1 : 1
+      })
+    }
     return acc
   }, {
     [AssessmentCategory.SEO]: [],
