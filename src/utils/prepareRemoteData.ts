@@ -32,7 +32,14 @@ export async function prepareRemoteData(
   // find the title, description and content
   const title = doc.title || doc.querySelector('h1')?.textContent || doc.querySelector('h2')?.textContent || ''
   const description = doc.querySelector<HTMLMetaElement>('meta[name="description"]')?.content || ''
-  const content = doc.querySelector(contentSelector)?.innerHTML || ''
+  const nodeList = doc.querySelectorAll(`[data-content='seo']`)
+  const createElement = doc.createElement('main')
+  await Promise.all(
+    Array.from(nodeList).map((n) => createElement.appendChild(n))
+  );
+  const contentHtml = doc.querySelector(contentSelector)?.innerHTML || ''
+  const mainElement = createElement?.innerHTML
+  const content = nodeList?.length ? mainElement : contentHtml
 
   return {
     locale: langCulture,
